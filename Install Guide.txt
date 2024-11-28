@@ -1,0 +1,5 @@
+To install the grove dependencies onto the pi, follow the offline install guide found here:
+https://github.com/Seeed-Studio/grove.py 
+
+To install the vL53L0X sensor's dependencies seperate, follow the guide found here;
+https://github.com/johnbryanmoore/VL53L0X_rasp_python 
