@@ -15,7 +15,7 @@ def read_sensor_data(clientSocket, trash_height, thresholds_received, root):
 
                 pi_data = pickle.loads(data)
                 print(pi_data)
-                root.after(0, update_trashcan_status, thresholds_received, pi_data[1], trash_height)
+                root.after(0, update_trashcan_status, thresholds_received, pi_data[0], pi_data[1], trash_height)
 
             except TimeoutError:
                 print('Receiving sensor data from server timed out.')

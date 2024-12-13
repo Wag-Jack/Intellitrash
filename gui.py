@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 state = {}
 
 # Function to update the trashcan's status
-def update_trashcan_status(status_bounds, sensor_reading, trash_height):
+def update_trashcan_status(status_bounds, status_flag, sensor_reading, trash_height):
     global state
 
     #Converts sensor data to be received by the GUI
@@ -23,19 +23,20 @@ def update_trashcan_status(status_bounds, sensor_reading, trash_height):
 
     # Update the status summary
     status_summary = state['status_summary']
-    if progress > status_bounds[1]: #<50% full
-        status_summary.config(text=f"Trashcan is {int(progress)}% Full", fg="green")
-        img = ImageTk.PhotoImage(Image.open("trashcan_green.png"))
-    elif status_bounds[1] > progress > status_bounds[0]: #50% full < d < 90% full
-        status_summary.config(text=f"Trashcan is {int(progress)}% Full", fg="orange")
-        img = ImageTk.PhotoImage(Image.open("trashcan_yellow.png"))
-    else: #>= ()% full
-        status_summary.config(text=f"Trashcan is {int(progress)}% Full", fg="red")
-        img = ImageTk.PhotoImage(Image.open("trashcan_red.png"))
-        if progress == 100:
-            alert_user("Trashcan is Full!")
-
-    # if progress > 100%
+    if status_flag == 'RED': #Trashcan close to full
+        status_summary.config(text=f'Trashcan is {int(progress)}% Full', fg='red')
+        img = ImageTk.PhotoImage(Image.open('trashcan_red.png'))
+        if progress == 100: #Trashcan is full
+            alert_user('Trashcan is full!')
+    elif status_flag == 'YELLOW': #Trashcan in yellow zone
+        status_summary.config(text=f'Trashcan is {int(progress)}% Full', fg='orange')
+        img = ImageTk.PhotoImage(Image.open('trashcan_yellow.png'))
+    elif status_flag == 'GREEN': #Trashcan in green zone
+        status_summary.config(text=f'Trashcan is {int(progress)}% Full', fg='green')
+        img = ImageTk.PhotoImage(Image.open('trashcan_green.png'))
+    else: #Trashcan is open
+        status_summary.config(text='Trashcan open! Please close!', fg='green')
+        img = ImageTk.PhotoImage(Image.open('trashcan_green.png'))
 
     # Update the trashcan image
     canvas = state['canvas']
