@@ -25,7 +25,7 @@ def read_sensor_data(clientSocket, trash_height, thresholds_received, root):
                 break
 
 def main():
-    serverName = '192.168.0.215' #Until we get a static IP on the Pi, change this with every boot up.
+    serverName = '192.168.0.215'
     serverPort = 3516
 
     clientSocket = socket(AF_INET, SOCK_STREAM)
