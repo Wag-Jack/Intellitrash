@@ -26,14 +26,14 @@ def read_sensor_data(clientSocket, trash_height, thresholds_received, root):
 
 def main():
     serverName = '192.168.0.215'
-    serverPort = 3516
+    serverPort = 8498
 
     clientSocket = socket(AF_INET, SOCK_STREAM)
     clientSocket.settimeout(5) #timeout after five seconds if connection stalls
 
     try:
         clientSocket.connect((serverName, serverPort))
-        print(f'Connected to server at{serverName}:{serverPort}')
+        print(f'Connected to server at {serverName}:{serverPort}')
     except TimeoutError:
         print(f'Timeout occurred while trying to connect to {serverName}:{serverPort}')
         return
